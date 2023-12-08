@@ -5,9 +5,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
 import { Octokit, App } from "octokit";
+import Search from "./models/searchModel";
 
 dotenv.config();
-console.log(process.env.GITHUB_TOKEN, "token");
+console.log("token", process.env.GITHUB_TOKEN);
 
 if (!process.env.MONGO_URI) {
   throw new Error("MONGO_URI environment variable is not defined.");
@@ -21,12 +22,7 @@ const port: number = parseInt(process.env.PORT, 10);
 
 const app: Application = express();
 
-// const octokit = new Octokit({
-//   auth: {
-//     token: process.env.GITHUB_TOKEN + "",
-//   },
-// // });
-app.get("/", async (req, res) => {
+app.get("/repos", async (req, res) => {
   try {
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
@@ -34,7 +30,7 @@ app.get("/", async (req, res) => {
       data: { login },
     } = await octokit.rest.users.getAuthenticated();
     console.log("Hello, %s", login);
-    // const { data } = await octokit.users.getAuthenticated();
+
     res.status(200).json({ users: login });
   } catch (error) {
     console.error(error);
@@ -44,32 +40,43 @@ app.get("/", async (req, res) => {
 
 app.get("/repo-info", async (req, res) => {
   const repoName = req.query.name as string;
-  // // if (!repoName) {
-  // //   return res
-  // //     .status(400)
-  // //     .json({ error: "Missing repository name in query parameter" });
-  // }
+
   try {
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-    // const response = await octokit.get({
-    //   owner: "owner",
-    //   repo: repoName,
-    // });
-    const {
-      data: { login },
-    } = await octokit.rest.users.getAuthenticated();
-    console.log("Hello, %s", login);
 
-    const response = await octokit.request(
-      "POST /repos/{owner}/{repo}/issues",
+    console.log("Hello, %s");
 
-      {
-        owner: "Rodrigo-Guerra12",
-        repo: "proyecto-final",
-        title: "Hello, world!",
-        body: "I created this issue using Octokit!",
-      }
-    );
+    const response = await octokit.rest.search.repos({
+      q: repoName,
+    });
+
+    const data = new Search({
+      searchType: "repos",
+      queryOptions: {
+        q: repoName,
+      },
+    });
+
+    const dataToSave = await data.save();
+    console.log("dataToSave: ", dataToSave);
+    res.json(response.data);
+  } catch (error: any) {
+    res.status(error.status || 500).json({ error: error.message });
+  }
+});
+
+app.get("/users-info", async (req, res) => {
+  const userName = req.query.name as string;
+
+  try {
+    const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+    console.log("Hello, %s");
+
+    const response = await octokit.rest.search.users({
+      q: userName,
+    });
+
     console.log("response", response);
     res.json(response.data);
   } catch (error: any) {
@@ -77,25 +84,6 @@ app.get("/repo-info", async (req, res) => {
   }
 });
 
-// app.get("/repo-info", async (req, res) => {
-//   const repoName = req.query.name as string;
-//   if (!repoName) {
-//     return res
-//       .status(400)
-//       .json({ error: "Missing repository name in query parameter" });
-//   }
-//   try {
-//     const response = await Octokit.repos.get({
-//       owner: "owner",
-//       repo: repoName,
-//     });
-//     res.json(response.data);
-//   } catch (error: any) {
-//     res.status(error.status || 500).json({ error: error.message });
-//   }
-// });
-
-// Connect to the MongoDB database
 mongoose.connect(mongoUri);
 
 const db = mongoose.connection;
