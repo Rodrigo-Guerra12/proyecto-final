@@ -7,10 +7,9 @@ const router = express.Router();
 router.post("/prueba", async (req: Request, res: Response) => {
   try {
     const data = new Model({
-      name: req.body.name,
-      age: req.body.age,
+      q: { required: true, type: String },
     });
-
+    console.log("data ", data);
     const dataToSave = await data.save();
     res.status(200).json(dataToSave);
   } catch (error) {
