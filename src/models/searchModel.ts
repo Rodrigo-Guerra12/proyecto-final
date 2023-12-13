@@ -2,6 +2,7 @@ import mongoose, { Document, Schema, Model, model } from "mongoose";
 
 interface ISearch extends Document {
   searchType: string;
+  date: Date;
   queryOptions: {
     q: string;
     sort?: "indexed" | undefined;
@@ -15,6 +16,12 @@ const dataSchema: Schema<ISearch> = new Schema<ISearch>({
   searchType: {
     required: true,
     type: String,
+  },
+
+  date: {
+    requiered: true,
+    type: Date,
+    default: Date.now,
   },
   queryOptions: {
     required: true,

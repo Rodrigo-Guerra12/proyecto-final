@@ -7,7 +7,7 @@ import userRoutes from "./routes/userRoutes";
 import queryRouter from "./routes/queryRouter";
 
 dotenv.config();
-console.log("token", process.env.GITHUB_TOKEN);
+console.log("PROYECTO FINAL API NODE JS / MongoDB 🎉🎉");
 
 if (!process.env.MONGO_URI) {
   throw new Error("MONGO_URI environment variable is not defined.");
@@ -30,7 +30,7 @@ db.on("error", (err) => {
 });
 
 db.once("open", () => {
-  console.log("Connected to MongoDB");
+  console.log("Connected to MongoDB 🔋");
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,5 +41,5 @@ app.use("/api", queryRouter);
 app.use("/api/users", userRoutes);
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port 📡 ${port}`);
 });

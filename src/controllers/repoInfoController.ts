@@ -8,10 +8,17 @@ const octokit = new Octokit({
 
 export async function repoInfoController(req: Request, res: Response) {
   const repoName = req.query.name as string;
+  let updateRepoDate;
+  try {
+    updateRepoDate = await Search.updateOne(
+      { searchType: "repos", "queryOptions.q": repoName },
+      { $set: { date: new Date() } }
+    );
+  } catch (error) {
+    console.log("ERROR!!!!, ", error);
+  }
   try {
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-
-    console.log("Hello, %s");
 
     const response = await octokit.rest.search.repos({
       q: repoName,
@@ -23,9 +30,20 @@ export async function repoInfoController(req: Request, res: Response) {
         q: repoName,
       },
     });
-    console.log("Repo name 🎈🎈 ", repoName);
-    const dataToSave = await data.save();
-    console.log("dataToSave: ", dataToSave);
+
+    if (updateRepoDate && updateRepoDate.modifiedCount === 0) {
+      console.log(
+        "REPOS : fecha de query creada por primera vez, ",
+        updateRepoDate
+      );
+      const dataToSave = await data.save();
+    } else {
+      console.log(
+        "REPOS : fecha modificada de query ya existente, ",
+        updateRepoDate
+      );
+    }
+
     res.json(response.data);
   } catch (error: any) {
     res.status(error.status || 500).json({ error: error.message });
