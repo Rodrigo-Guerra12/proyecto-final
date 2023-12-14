@@ -7,10 +7,16 @@ const octokit = new Octokit({
 });
 
 export async function queryIdController(req: Request, res: Response) {
+  let data;
   try {
-    const data = await Search.findById(req.params.id);
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ message: error });
+    data = await Search.findById(req.params.id);
+
+    if (!data) {
+      throw new Error("El ID que intentas buscar no existe 💥");
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+    return;
   }
+  res.json({ message: data });
 }
