@@ -33,13 +33,13 @@ export async function repoInfoController(req: Request, res: Response) {
 
     if (updateRepoDate && updateRepoDate.modifiedCount === 0) {
       console.log(
-        "REPOS : fecha de query creada por primera vez, ",
+        "💻 📕 REPOS : fecha de query creada por primera vez, ",
         updateRepoDate
       );
       const dataToSave = await data.save();
     } else {
       console.log(
-        "REPOS : fecha modificada de query ya existente, ",
+        "💻 📕 REPOS : fecha modificada de query ya existente, ",
         updateRepoDate
       );
     }

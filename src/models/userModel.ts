@@ -1,9 +1,10 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
 
 // Define the schema
-interface IUser extends Document {
+export interface IUser extends Document {
   name: string;
-  age: number;
+  email: string;
+  password: string;
 }
 
 const dataSchema: Schema<IUser> = new Schema<IUser>({
@@ -11,13 +12,17 @@ const dataSchema: Schema<IUser> = new Schema<IUser>({
     required: true,
     type: String,
   },
-  age: {
+  email: {
     required: true,
-    type: Number,
+    type: String,
+  },
+  password: {
+    required: true,
+    type: String,
   },
 });
 
 // Define the model
-const Data: Model<IUser> = model<IUser>("User", dataSchema);
+const User: Model<IUser> = model<IUser>("User", dataSchema);
 
-export default Data;
+export default User;

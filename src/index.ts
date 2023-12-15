@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
 import queryRouter from "./routes/queryRouter";
+import logsingRouter from "./routes/logsingRouter";
 
 dotenv.config();
 console.log("PROYECTO FINAL API NODE JS / MongoDB 🎉🎉");
@@ -37,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/api", queryRouter);
+app.use("/api/login", logsingRouter);
 
 app.use("/api/users", userRoutes);
 

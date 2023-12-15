@@ -7,36 +7,178 @@
 	},
 	"item": [
 		{
-			"name": "Obtener usuarios",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "OK",
+			"item": [
+				{
+					"name": "Obtener usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users-info?name=juan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users-info"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "juan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener repos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/repo-info?name=React",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"repo-info"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "React"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas queries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/queries/?name={{prueba}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"queries",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{prueba}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener queries por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/queries/657a4e74f1617f2ce9ec7e2b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"queries",
+								"657a4e74f1617f2ce9ec7e2b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar queries por ID Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/queries/657a4e74f1617f2ce9ec7e2b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"queries",
+								"657a4e74f1617f2ce9ec7e2b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "Obtener repos",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener todas queries",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener queries por ID",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "ERROR",
+			"item": [
+				{
+					"name": "Error eliminar queries por ID Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/queries/657a4e74f1617f2ce9ec7e2b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"queries",
+								"657a4e74f1617f2ce9ec7e2b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Error obtener queries por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/queries/657a4e74f1617f2ce9ec7e2b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"queries",
+								"657a4e74f1617f2ce9ec7e2b"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Carpeta para visualizar errores al buscar queries por ID que no existen o ya fueron eliminados."
 		}
 	]
 }

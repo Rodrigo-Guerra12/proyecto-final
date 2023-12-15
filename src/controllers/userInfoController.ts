@@ -34,13 +34,13 @@ export async function userInfoController(req: Request, res: Response) {
     // console.log("Repo name 🎈🎈 ", userName);
     if (updateResult && updateResult.modifiedCount === 0) {
       console.log(
-        "USERS : fecha de query creada por primera vez, ",
+        "🧍‍♂️🧍‍♀️ USERS : fecha de query creada por primera vez, ",
         updateResult
       );
       const dataToSave = await data.save();
     } else {
       console.log(
-        "USERS : fecha modificada de query ya existente, ",
+        "🧍‍♂️🧍‍♀️ USERS : fecha modificada de query ya existente, ",
         updateResult
       );
     }
